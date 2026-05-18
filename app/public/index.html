@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>PhotoCloud</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+
+      font-family: 'Poppins', sans-serif;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0f172a,
+          #1e293b
+        );
+
+      color: white;
+
+      min-height: 100vh;
+
+    }
+
+    header {
+
+      width: 100%;
+
+      padding: 25px 40px;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      backdrop-filter: blur(10px);
+
+      background:
+        rgba(255,255,255,0.05);
+
+      border-bottom:
+        1px solid rgba(255,255,255,0.1);
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 100;
+
+    }
+
+    .logo {
+
+      font-size: 34px;
+
+      font-weight: 700;
+
+      background:
+        linear-gradient(
+          90deg,
+          #38bdf8,
+          #818cf8
+        );
+
+      -webkit-background-clip: text;
+
+      -webkit-text-fill-color: transparent;
+
+    }
+
+    .subtitle {
+
+      color: #cbd5e1;
+
+      font-size: 14px;
+
+      margin-top: 5px;
+
+    }
+
+    .container {
+
+      width: 100%;
+
+      max-width: 1200px;
+
+      margin: auto;
+
+      padding: 40px 20px;
+
+      display: grid;
+
+      grid-template-columns: 350px 1fr;
+
+      gap: 30px;
+
+    }
+
+    .card {
+
+      background:
+        rgba(255,255,255,0.08);
+
+      border:
+        1px solid rgba(255,255,255,0.1);
+
+      border-radius: 24px;
+
+      padding: 25px;
+
+      backdrop-filter: blur(12px);
+
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.25);
+
+    }
+
+    .card h2 {
+
+      margin-bottom: 20px;
+
+      font-size: 24px;
+
+    }
+
+    input,
+    textarea {
+
+      width: 100%;
+
+      padding: 15px;
+
+      margin-bottom: 15px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid rgba(255,255,255,0.1);
+
+      background:
+        rgba(255,255,255,0.05);
+
+      color: white;
+
+      outline: none;
+
+      font-size: 14px;
+
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+
+      color: #94a3b8;
+
+    }
+
+    textarea {
+
+      min-height: 130px;
+
+      resize: none;
+
+    }
+
+    button {
+
+      width: 100%;
+
+      padding: 15px;
+
+      border: none;
+
+      border-radius: 14px;
+
+      font-size: 15px;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition: 0.3s;
+
+    }
+
+    .btn-publicar {
+
+      background:
+        linear-gradient(
+          90deg,
+          #38bdf8,
+          #6366f1
+        );
+
+      color: white;
+
+    }
+
+    .btn-publicar:hover {
+
+      transform: translateY(-2px);
+
+      opacity: 0.95;
+
+    }
+
+    .feed {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 25px;
+
+    }
+
+    .post {
+
+      background:
+        rgba(255,255,255,0.08);
+
+      border-radius: 24px;
+
+      overflow: hidden;
+
+      border:
+        1px solid rgba(255,255,255,0.08);
+
+      backdrop-filter: blur(12px);
+
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.25);
+
+      animation: fadeIn 0.4s ease;
+
+    }
+
+    .post img {
+
+      width: 100%;
+
+      max-height: 500px;
+
+      object-fit: cover;
+
+    }
+
+    .post-content {
+
+      padding: 22px;
+
+    }
+
+    .post-content h3 {
+
+      font-size: 26px;
+
+      margin-bottom: 10px;
+
+    }
+
+    .post-content p {
+
+      color: #cbd5e1;
+
+      line-height: 1.7;
+
+      margin-bottom: 15px;
+
+    }
+
+    .likes {
+
+      margin-bottom: 15px;
+
+      color: #fda4af;
+
+      font-weight: 600;
+
+    }
+
+    .comentarios {
+
+      margin-top: 20px;
+
+    }
+
+    .comentario {
+
+      background:
+        rgba(255,255,255,0.05);
+
+      padding: 10px;
+
+      border-radius: 10px;
+
+      margin-bottom: 10px;
+
+    }
+
+    .btn-delete {
+
+      background: #ef4444;
+
+      color: white;
+
+      margin-top: 10px;
+
+    }
+
+    .btn-delete:hover {
+
+      background: #dc2626;
+
+    }
+
+    .btn-like {
+
+      background: #ec4899;
+
+      color: white;
+
+    }
+
+    .btn-like:hover {
+
+      background: #db2777;
+
+    }
+
+    footer {
+
+      text-align: center;
+
+      padding: 30px;
+
+      color: #94a3b8;
+
+      font-size: 14px;
+
+    }
+
+    @keyframes fadeIn {
+
+      from {
+
+        opacity: 0;
+
+        transform: translateY(10px);
+
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+      }
+
+    }
+
+    @media(max-width: 900px) {
+
+      .container {
+
+        grid-template-columns: 1fr;
+
+      }
+
+      header {
+
+        flex-direction: column;
+
+        gap: 10px;
+
+        text-align: center;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+    <div>
+
+      <div class="logo">
+        📸 PhotoCloud
+      </div>
+
+      <div class="subtitle">
+        Rede Social Docker + PostgreSQL
+      </div>
+
+    </div>
+
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+
+      <h2>
+        Nova Publicação
+      </h2>
+
+      <input
+        type="text"
+        id="titulo"
+        placeholder="Título"
+      >
+
+      <input
+        type="text"
+        id="imagem"
+        placeholder="URL da imagem"
+      >
+
+      <textarea
+        id="descricao"
+        placeholder="Descrição"
+      ></textarea>
+
+      <button
+        class="btn-publicar"
+        onclick="publicar()"
+      >
+        Publicar Foto
+      </button>
+
+    </div>
+
+    <div
+      class="feed"
+      id="feed"
+    ></div>
+
+  </div>
+
+  <footer>
+
+    Desenvolvido por Vinícius Policarpo Macedo
+
+  </footer>
+
+  <script>
+
+    async function carregarFotos() {
+
+      const resposta =
+        await fetch('/fotos');
+
+      const fotos =
+        await resposta.json();
+
+      const feed =
+        document.getElementById('feed');
+
+      feed.innerHTML = '';
+
+      for (const foto of fotos) {
+
+        const respostaComentarios =
+          await fetch('/comentarios/' + foto.id);
+
+        const comentarios =
+          await respostaComentarios.json();
+
+        let htmlComentarios = '';
+
+        comentarios.forEach(comentario => {
+
+          htmlComentarios += `
+            <div class="comentario">
+              💬 ${comentario.texto}
+            </div>
+          `;
+
+        });
+
+        feed.innerHTML += `
+
+          <div class="post">
+
+            <img
+              src="${foto.imagem}"
+              alt="Imagem"
+            >
+
+            <div class="post-content">
+
+              <h3>
+                ${foto.titulo}
+              </h3>
+
+              <p>
+                ${foto.descricao}
+              </p>
+
+              <div class="likes">
+                ❤️ ${foto.curtidas} curtidas
+              </div>
+
+              <button
+                class="btn-like"
+                onclick="curtir(${foto.id})"
+              >
+                Curtir
+              </button>
+
+              <button
+                class="btn-delete"
+                onclick="excluirFoto(${foto.id})"
+              >
+                Excluir
+              </button>
+
+              <div class="comentarios">
+
+                <h4>
+                  Comentários
+                </h4>
+
+                <br>
+
+                ${htmlComentarios}
+
+                <input
+                  type="text"
+                  id="comentario-${foto.id}"
+                  placeholder="Escreva um comentário"
+                >
+
+                <button
+                  onclick="comentar(${foto.id})"
+                >
+                  Comentar
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+
+    }
+
+    async function publicar() {
+
+      const titulo =
+        document.getElementById('titulo').value;
+
+      const imagem =
+        document.getElementById('imagem').value;
+
+      const descricao =
+        document.getElementById('descricao').value;
+
+      await fetch('/fotos', {
+
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+          titulo,
+          imagem,
+          descricao
+        })
+
+      });
+
+      document.getElementById('titulo').value = '';
+      document.getElementById('imagem').value = '';
+      document.getElementById('descricao').value = '';
+
+      carregarFotos();
+
+    }
+
+    async function excluirFoto(id) {
+
+      await fetch('/fotos/' + id, {
+
+        method: 'DELETE'
+
+      });
+
+      carregarFotos();
+
+    }
+
+    async function curtir(id) {
+
+      await fetch('/fotos/' + id + '/curtir', {
+
+        method: 'POST'
+
+      });
+
+      carregarFotos();
+
+    }
+
+    async function comentar(id) {
+
+      const texto =
+        document.getElementById(
+          'comentario-' + id
+        ).value;
+
+      await fetch('/comentarios', {
+
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+          foto_id: id,
+          texto
+        })
+
+      });
+
+      carregarFotos();
+
+    }
+
+    carregarFotos();
+
+  </script>
+
+</body>
+</html>
